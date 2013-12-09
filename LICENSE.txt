@@ -1,3 +1,5 @@
+*  Copyright (c) ACIDE & Scott Bateman (sbateman@upei.ca)
+*  extended and modified from Codiad 2013-2014
 *  Copyright (c) Codiad & Kent Safranski (codiad.com)
 *
 *  Permission is hereby granted, free of charge, to any person obtaining
