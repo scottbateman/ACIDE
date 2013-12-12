@@ -7,8 +7,11 @@
 */
 
 //require_once('../../common.php');
-require_once('../course/class.course.php');
-require_once('../user/class.user.php');
+set_include_path("/");
+$root_folder =  dirname(dirname(dirname(__FILE__))); 
+
+require_once($root_folder . '/components/course/class.course.php');
+require_once($root_folder . '/components/user/class.user.php');
 
 class Project extends Common {
 
@@ -238,12 +241,19 @@ class Project extends Common {
 				}
 			}
 		}
+		// Create the folder for the owner
+		$this->path = "AS_" . $this->assignment["owner"] ."_" . $this->assignment["id"];
+		$result = $this->Create($this->assignment["owner"]);
+		if ($result != 'success') {
+			$return = $result;
+		}
 		
 		if ($return != 'success') {
 			$users = $collection->find();
 			$user = '';
 			foreach ($users as $user) {
-				if (in_array($user['username'], $these_users)  && $user['type'] == 'student') {
+				//if (in_array($user['username'], $these_users)  && $user['type'] == 'student') {
+				if (in_array($user['username'], $these_users)) {
 					$this->path = "AS_" . $user['username'] ."_" . $this->assignment["id"];
 					$delete_as_an_assignment = TRUE;
 					$result = $this->Delete($delete_as_an_assignment);
@@ -258,7 +268,22 @@ class Project extends Common {
     //////////////////////////////////////////////////////////////////
     // LF: Create
     //////////////////////////////////////////////////////////////////
-
+	public function recurse_copy($src,$dst) { 
+	    $dir = opendir($src); 
+	    @mkdir($dst); 
+	    while(false !== ( $file = readdir($dir)) ) { 
+	        if (( $file != '.' ) && ( $file != '..' )) { 
+	            if ( is_dir($src . '/' . $file) ) { 
+	                $this->recurse_copy($src . '/' . $file,$dst . '/' . $file); 
+	            } 
+	            else { 
+	                copy($src . '/' . $file,$dst . '/' . $file); 
+	            } 
+	        } 
+	    } 
+	    closedir($dir); 
+	}
+	
     public function Create($user = ''){
     	if (isset($this->assignment["id"])) {
     		$has_assignment = TRUE;
@@ -326,6 +351,37 @@ class Project extends Common {
 				$assignment_successfully_created = FALSE;
 				if ($has_assignment) {
 					if ($this->CreateProjectOnDatabase($user)) {
+						##############################
+						## Copy resources to this folder
+						##############################
+						// Find first path
+						$first_path =  dirname(dirname(__FILE__)); 
+						$first_path = explode("/", $first_path);
+						$first_path_last = count($first_path) - 1; 
+
+						unset($first_path[$first_path_last]);
+						unset($first_path[0]);
+						$first_path = array_values($first_path);
+						$first_path = "/" . implode("/", $first_path);
+						
+						// Get path
+						$reference_folder_name = $first_path . "/data/assignments/reference_files/" . $this->assignment["id"];
+						//$this->assignment["id"]
+						// Copy resources	
+						// Test if there are files into the reference directory, 
+						// if yes, copy to the assignment folder
+						// if not, don't create the Reference Material folder
+						if(count(glob($reference_folder_name ."/*"))) { 
+							$current_folder = $first_path . "/workspace/" . $this->path . "/Reference Material";
+							mkdir($current_folder.'/', 0755);
+							//error_log("::: recurse_copy(" . $reference_folder_name . "," .  $current_folder. ");" );
+							$this->recurse_copy($reference_folder_name, $current_folder);	
+						}
+						
+						//rename($this->path . "/" . $this->assignment["id"] , $this->path . "/references");
+						
+						
+						
 						return "success";
 					} else {
 						return "Could not create the project in the database.";
@@ -521,6 +577,14 @@ class Project extends Common {
         return preg_replace('/[^\w-]/', '', $sanitized);
     }
     
+    //////////////////////////////////////////////////////////////////
+    // Sanitize Path
+    //////////////////////////////////////////////////////////////////
+
+    public static function SanitizeAPath($path){
+        $sanitized = str_replace(" ","_",$path);
+        return preg_replace('/[^\w-]/', '', $sanitized);
+    }
     //////////////////////////////////////////////////////////////////
     // Clean Path
     //////////////////////////////////////////////////////////////////
@@ -908,8 +972,11 @@ class Project extends Common {
 		$update_successful = TRUE;
 		
 		foreach ($users as $user) {
+			if ($user["type"] == "admin") {
+				continue;
+			}
 			for ($i = 0; $i < count($user["projects"]); $i++) {
-				if (isset($user["projects"][$i]["assignment"]['id'])) {
+				if (isset($user["projects"][$i]["assignment"]["id"])) {
 					if ($user["projects"][$i]["assignment"]['id'] == $id) {
 						//  Get the url of the description url 
 						$url = $user["projects"][$i]["assignment"]['description_url'];
@@ -928,25 +995,22 @@ class Project extends Common {
 		
 		$tokens = explode('/', $url);
 		$description_file_name = $tokens[sizeof($tokens)-1];
+		
+		$first_path =  dirname(dirname(__FILE__)); 
+		$first_path = explode("/", $first_path);
+		$first_path_last = count($first_path) - 1; 
+
+		unset($first_path[$first_path_last]);
+		unset($first_path[0]);
+		unset($first_path[1]);
+		unset($first_path[2]);
+		$first_path = array_values($first_path);
+		$first_path = "/" . implode("/", $first_path);
+								
 		if ($update_successful) {
-			$update_successful = unlink("../../data/assignments/" . $description_file_name);
+			$update_successful = unlink($first_path . "/data/assignments/" . $description_file_name);
 		}
 		
 		return $update_successful;
-	}
+	}	 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -158,8 +158,34 @@
 							if (file_exists("../../data/assignments/" . $_FILES["file"]["name"])) {
 								$error = "The description file \"" . $_FILES["file"]["name"] . "\" already exists. ";
 							} else {
-								move_uploaded_file($_FILES["file"]["tmp_name"], "../../data/assignments/" . $_FILES["file"]["name"]);
+								$first_path =  dirname(dirname(__FILE__)); 
+								$first_path = explode("/", $first_path);
+								$first_path_last = count($first_path) - 1; 
+
+								unset($first_path[$first_path_last]);
+								unset($first_path[0]);
+								$first_path = array_values($first_path);
+								$first_path = "/" . implode("/", $first_path);
+								
+								
+								//move_uploaded_file($_FILES["file"]["tmp_name"], "../../data/assignments/" . $_FILES["file"]["name"]);
+								move_uploaded_file($_FILES["file"]["tmp_name"], $first_path. "/data/assignments/" . $_FILES["file"]["name"]);
+								
+								####
+								# Move the reference file to assignment folder {
+								$reference_folder_name = $first_path . "/data/assignments/reference_files/" . $Assignment["id"];
+								mkdir($reference_folder_name, 0777);
+								move_uploaded_file($_FILES["reference_file1"]["tmp_name"], $reference_folder_name. "/" . $_FILES["reference_file1"]["name"]);
+								move_uploaded_file($_FILES["reference_file2"]["tmp_name"], $reference_folder_name. "/" . $_FILES["reference_file2"]["name"]);
+								move_uploaded_file($_FILES["reference_file3"]["tmp_name"], $reference_folder_name. "/" . $_FILES["reference_file3"]["name"]);
+								move_uploaded_file($_FILES["reference_file4"]["tmp_name"], $reference_folder_name. "/" . $_FILES["reference_file4"]["name"]);
+								move_uploaded_file($_FILES["reference_file5"]["tmp_name"], $reference_folder_name. "/" . $_FILES["reference_file5"]["name"]);
+								# } 
+								####
+								
+								
 								$Assignment["description_url"] = 'http';
+								
 								
 								if (isset($_SERVER["HTTPS"])) {
 									if ($_SERVER["HTTPS"] == "on") {
@@ -167,8 +193,19 @@
 									}
 								}
 								$Assignment["description_url"] .= "://";
-								$first_path = explode("/", $_SERVER["REQUEST_URI"]);
-								$first_path = "/" .$first_path[1];
+								
+								$first_path = explode("/", $first_path);
+								unset($first_path[1]);
+								unset($first_path[2]);
+								$first_path = array_values($first_path);
+								$first_path =  implode("/", $first_path);
+								
+								
+								
+								
+								//require_once(__ROOT__.'/course/class.course.php');
+								//$first_path = explode("/", $_SERVER["REQUEST_URI"]);
+								//$first_path = "/" .$first_path[1];
 								
 								if ($_SERVER["SERVER_PORT"] != "80") {
 									//$Assignment["description_url"] .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
@@ -189,10 +226,10 @@
 					$Assignment["id"] = str_replace(" ","_",$_POST['project_name']);
 	        		$Assignment["id"] = preg_replace('/[^\w-]/', '', $Assignment["id"]);					
 					//$Project->path = $_POST['id'];
-					$Project->path = $Assignment["id"]; 
-					$Project->name = $_POST['project_name'];
-					$Project->privacy = "private";
-					$Project->course = $_POST['course'];
+					$Project->path 		= $Assignment["id"]; 
+					$Project->name 		= $_POST['project_name'];
+					$Project->privacy 	= "private";
+					$Project->course 	= $_POST['course'];
 					
 					//$Assignment["id"] = $Project->path;
 					
@@ -299,13 +336,13 @@
 	
 	<head>
 		<meta charset="utf-8">
-		<title>CODIAD</title>
+		<title>ACIDE</title>
 		<link rel="stylesheet" href="../../themes/default/assignment/screen.css">
 		<link rel="stylesheet" href="../../themes/default/fonts.css">
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	  	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	  	<script src="/Codiad/components/assignment/init.js"></script>
+	  	<script src="/components/assignment/init.js"></script>
 	  	<!-- Timepicker -->
 	  	<link rel="stylesheet" type="text/css" href="timepicker/jquery.ptTimeSelect.css" />
 	    <script type="text/javascript" src="timepicker/jquery.ptTimeSelect.js" /></script>   
@@ -552,6 +589,26 @@
 										<td><input name="file" type="file" accept=".pdf"  /></td>
 									</tr>
 									<tr>
+										<th>Reference file #1</th>
+										<td><input name="reference_file1" type="file"  /></td>
+									</tr>
+									<tr>
+										<th>Reference file #2</th>
+										<td><input name="reference_file2" type="file"  /></td>
+									</tr>
+									<tr>
+										<th>Reference file #3</th>
+										<td><input name="reference_file3" type="file"  /></td>
+									</tr>
+									<tr>
+										<th>Reference file #4</th>
+										<td><input name="reference_file4" type="file"  /></td>
+									</tr>
+									<tr>
+										<th>Reference file #5</th>
+										<td><input name="reference_file5" type="file"  /></td>
+									</tr>
+									<tr>
 										<th>Maximum number of group members</th>
 										<td>
 											<select name="maximum_number_of_group_members">
@@ -573,19 +630,8 @@
 							<?=$form_button_title?>
 						</button>
 						<?	if ($editing_assignment) {
-								$pageURL = 'http';
-								if (@$_SERVER["HTTPS"] == "on") {
-									$pageURL .= "s";
-								}
-								
-								$pageURL .= "://";
-								
-								if ($_SERVER["SERVER_PORT"] != "80") {
-									 $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
-								} else {
-									 $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-								}
-								
+								$pageURL = WEB_BASE_PATH;
+								$pageURL .= "/components/assignment/";
 							?>
 							<a href="<?=$pageURL?>">Cancel</a>
 						<? } ?>

@@ -4,9 +4,14 @@
  *  Copyright (c) UPEI lrosa@upei.ca sbateman@upei.ca
  */
  // Gets the root folder
-$root_folder = substr(substr($_SERVER["REQUEST_URI"],1), 0, strpos(substr($_SERVER["REQUEST_URI"],1), "/"));
+//$root_folder = substr(substr($_SERVER["REQUEST_URI"],1), 0, strpos(substr($_SERVER["REQUEST_URI"],1), "/"));
 // Sets the include path
-set_include_path("/var/www/");
+//set_include_path("/var/www/");
+
+set_include_path("/");
+$root_folder =  dirname(dirname(dirname(dirname(__FILE__)))); 
+
+
 // Include the  require files
 require_once($root_folder . '/common.php');
 require_once($root_folder . '/components/userlog/class.userlog.php');
@@ -60,10 +65,11 @@ class Userlogreport {
 
 			$interval = $date1 -> diff($date2);
 			$total_time_system -> add($interval);
+			//error_log("total_time_system = " . date("H:i:s", $total_time_system->getTimestamp()));
 		}
 
 		$total_time_system_interval = $total_time_system_helper -> diff($total_time_system);
-
+		//error_log("total_time_system_interval = " . date("H:i:s", $total_time_system_interval->getTimestamp()));
 		return $total_time_system_interval;
 	}
 
@@ -335,5 +341,14 @@ class Userlogreport {
 		return $files;
 
 	}
+	
+	//////////////////////////////////////////////////////////////////
+    // Sanitize Path
+    //////////////////////////////////////////////////////////////////
+
+    public static function SanitizePath($path){
+        $sanitized = str_replace(" ","_",$path);
+        return preg_replace('/[^\w-]/', '', $sanitized);
+    }
 
 }

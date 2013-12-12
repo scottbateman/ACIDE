@@ -446,8 +446,7 @@ if(!file_exists(DATA . '/plugins.php')) {
 		var originY = 0;
 		var lastY = 0;
     	$(document).ready(function() {
-			
-			
+		
 			$(function() {
 			    var isDragging = false;
 			    $("#terminal-editor-resizing")

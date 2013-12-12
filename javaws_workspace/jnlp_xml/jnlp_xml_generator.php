@@ -1,7 +1,5 @@
 <?
-	//echo "application/x-java-jnlp-file";
-
-
+    if(file_exists('../../config.php')){ require_once('../../config.php'); }
 		
 	$jar_name	= $_GET['jar_name'];
 	$class_name = $_GET['class_name'];
@@ -16,32 +14,7 @@
 	header('Content-Disposition: inline; filename="'. $filename .'.jnlp"');
 	header('Content-type: application/x-java-jnlp-file');
 	
-	$pageURL = 'http';
-	if (@$_SERVER["HTTPS"] == "on") {
-		$pageURL .= "s";
-	}
-	
-	$pageURL .= "://";
-	
-	if ($_SERVER["SERVER_PORT"] != "80") {
-		 $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
-	} else {
-		$pageURL .= $_SERVER["SERVER_NAME"];
-	}
-	
-	$url =  $pageURL;
-	$directory = explode("/", $_SERVER["REQUEST_URI"]);
-	    
-	for ($i = 1; $i < count($directory); $i++) {
-	    if ($directory[$i] == "javaws_workspace") {
-	        break;
-	    } else {
-	        $url .= "/" . $directory[$i];   
-	    }
-	}
-	
-	$pageURL = $url . "/javaws_workspace";
-	//http://hci.csit.upei.ca/Codiad/javaws_workspace/
+	$pageURL = WEB_BASE_PATH . "/javaws_workspace";
 ?>
 <?="<?xml version=\"1.0\" encoding=\"utf-8\"?>"?>
 <!--- we may need to update the codebase path --->
