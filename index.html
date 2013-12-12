@@ -1,84 +1,193 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+	<title>ACIDE</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Import CSS -->
+	<link rel="stylesheet" href="css/main.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.easing.min.js"></script>
+	<script src="js/jquery.scrollto.min.js"></script>
+	<script src="js/slabtext.min.js"></script>
+	<script src="js/jquery.nav.js"></script>
+	<script src="js/main.js"></script>
+</head>
+<!-- To change color change the class "color-1" to "color-2, color-3 ... color-6" -->
+<body class="home color-2">
+	<a href="https://github.com/lucasfurlani/ACIDE">
+		<img style="position: absolute; top: 50px; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub">
+	</a>
+	<div id="header">
+		<div class="container">
 
-    <title>ACIDE by scottbateman</title>
-  </head>
+			<div class="row">
 
-  <body>
-    <header>
-      <div class="inner">
-        <h1>ACIDE</h1>
-        <h2>Academic, Collaborative, Web-based IDE</h2>
-        <a href="https://github.com/scottbateman/ACIDE" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
+					<i id="nav-button" class="icon-circle-arrow-down"></i>
+					<h2 id="logo">
+						<a href="index.html">
+							<span class="highlight"><span style="color:black;">AC</span>IDE</span>
+						</a>
+					</h2>
+				
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h1>
-<a name="acide---academic-collaborative-ide" class="anchor" href="#acide---academic-collaborative-ide"><span class="octicon octicon-link"></span></a>ACIDE - Academic, Collaborative IDE</h1>
+				<div id="top-nav" class="">
+					<ul id="fixed-nav" style="padding-right:90px;">
+						<li class="current"><a href="#home">Home</a></li>
+						<li><a href="#features">Features</a></li>
+						<li><a href="#aboutus">About</a></li>
+						<li><a href="#contact">Contact</a></li>
+					</ul>
+				</div>
 
-<p>ACIDE is a web-based IDE that was forked from the <strong><a href="http://codiad.com/">Codiad</a></strong> framework, which has a small footprint and minimal requirements. The system is still early in development, and while it has been proven extremely stable please be sure to backup regularly if you use it in any production work.</p>
+			</div>
+		</div>
+	</div><!-- End Header -->
+	<!-- Big Full screen Banner -->
+	<div class="hero bg-fixed bg-color" id="home">
 
-<p>Keep up to date with the latest changes through the **<a href="https://github.com/scottbateman/ACIDE">Github repo page</a>.</p>
+		<div class="slogan">
+			<div  class="vcenter container">
 
-<h2>
-<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started</h2>
+				<div class="row">
 
-<p>Installation of ACIDE requires uploading the files and making several directories and a config file writeable. Unike the Codiad there is a Mongo database required for logging interactions. PHP 5.3 or above is recommended, however, the system will work with any version of PHP over v.5.</p>
+					<div class="span12">
+						<h1>Academic Collaborative Integrated Development Environment</h1>
+					</div>
+				</div>
+			</div>
+		</div>
 
-<p>For more information please <strong><a href="">read the installation instructions</a></strong>, some additional information may be available on the <strong><a href="https://github.com/Codiad/Codiad/wiki">Codiad Wiki</a></strong>.</p>
 
-<h2>
-<a name="interface-and-functionality" class="anchor" href="#interface-and-functionality"><span class="octicon octicon-link"></span></a>Interface and Functionality</h2>
+	</div>
+	<!-- End Full screen banner  -->
+	<!-- Services Section -->
+	<!-- class section-alt is to give a different color please edit css/style.css to change the color -->
+	<div class="section section-alt" id="features">
+		<div class="container">
+			<div class="content">
+				<div class="row" >
+					<div class="title">
+						<h2>Features</h2>
+						<div class="hr hr-small hr-center"><span class="hr-inner"></span></div>
+						<p>The IDE provides various features to maximize the effectiviness of the management of introductory courses to programming.</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="span4 i-block">
+						<h3>Collaboration</h3>
+						<p>The collaboration tool allows students to work in the same file at the same time using different computers</p>
+					</div>
+					<div class="span4 i-block">
+						<h3>Assignments</h3>
+						<p>The teachers are able to create and manage assignments for a class and receive the student's project when he/she submits it</p>
+					</div>
+					<div class="span4 i-block">
+						<h3>Terminal</h3>
+						<p>The system has a terminal similar to a Unix console where students can make changes to their projects and compile files</p>
+					</div>
+				</div>
+				<div class="hr hr-invisible"></div>
+				<div class="row">
+					<div class="span4 i-block">
+						<h3>Markers</h3>
+						<p>Professors can add markers to the system. Markers can download all the assignments submitted by students in its class</p>
+					</div>
+					<div class="span4 i-block">
+						<h3>Shared Projects</h3>
+						<p>In a shared projects students are able to add classmates to it, which allows them to edit the same project and submit it as a group assignment</p>
+					</div>
+					<div class="span4 i-block">
+						<h3>Reports</h3>
+						<p>The system provides various reports of the students' behavior, like time spent in different assignments and which kind of compilation errors they have got</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Services Section -->
+	<!-- About Us section -->
+	<div class="section" id="aboutus">
+		<div class="container">
+			<div class="content">
+				<div class="row">
+					<div class="span12">
+						<div class="title">
+							<h2>About</h2>
+							<div class="hr hr-small hr-center"><span class="hr-inner"></span></div>
+							<p>What is an Academic Collaborative IDE?</p>
 
-<p>ACIDE consists of three panels; a left panel which houses the file manager and active files, center panel which is where editors reside, and a right panel which contains system and other controls. The right side panel collapses and there's no top toolbar to provide maximum real-estate to the editor. </p>
+						</div>
+						<p class="text-center">
+							ACIDE is an Online IDE designed to be used by students in their first year of Computer Science or Information Techology. It provides an environment where the students can insert, test and submit their code. On top of that, it is collaborative, so two or more students can work in the same file at the same time.
+						</p>
+						<p class="text-center">
+							For the teacher, the system provides an easy way of keeping track of assignments and group projects. Also, the Reports give the teacher an incredible detailed feedback of the students behaviour.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div> 
 
-<p>ACIDE provides user management, course administration, and the ability for students to work on and submit  individual or group assignments.</p>
+	</div>
+	<!-- End About US -->
+	<!-- Contact Section -->
+	<div class="section" id="contact" >
+		<div class="container">
+			<div class="content">
+				<div class="row">
+					<div class="span12">
+						<div class="title">
+							<h2>Contact Us</h2>
+							<div class="hr hr-small hr-center"><span class="hr-inner"></span></div>
+							<p>We will be happy to receive suggestions and answer any questions about the system!</p>
 
-<p><img src="http://codiad.com/screenshot.jpg" alt="ACIDE Screenshot"></p>
-        </section>
+						</div>
+					</div>
+					<div class="span8">
+						
+						<iframe width="100%" height="417" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.ca/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=University+of+Prince+Edward+Island,+University+Ave,+Charlottetown,+PE&amp;aq=0&amp;oq=univer&amp;sll=46.261961,-63.13589&amp;sspn=0.163304,0.361176&amp;t=m&amp;ie=UTF8&amp;hq=University+of+Prince+Edward+Island,+University+Ave,+Charlottetown,+PE&amp;ll=46.257171,-63.138573&amp;spn=0.009488,0.008572&amp;output=embed"></iframe><br />
+						
+					</div>
+					<div class="span4">
+						<h4>Our Location</h4>
+						<p>Dept. of Computer Science &amp; IT</p>
+						<p>University of Prince Edward Island</p>
+						<p>550 University Avenue</p>
+						<p>Charlottetown, PE  -  Canada C1A 4P3</p>
+						
+						<hr class="grey"/>
+						<h4>Our Contact</h4>
+						<p><b>Dr. Scott Bateman</b></p>
+						<p>Office: Cass 203b, Cass Science Hall</p>
+						<p>Tel: +1.902.620.5055  -  Fax: +1.902.566.0466</p>
+						<p>sbateman@upei.ca</p>
+						
+						<p><b>Lucas Rosa</b></p>
+						<p>lrosa@upei.ca</p>
+						<!--
+						<hr class="grey"/>
+						<h4>Socialize With Us</h4>
+						<div class="social">
+							<a href="#fb"><i class="icon-facebook-sign"></i></a>
+							<a href="#fb"><i class="icon-twitter-sign"></i></a>
+							<a href="#fb"><i class="icon-google-plus-sign"></i></a>
+						</div>
+						-->
+					</div>
+				</div>
+			</div>
+		</div> 
 
-        <aside id="sidebar">
-          <a href="https://github.com/scottbateman/ACIDE/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/scottbateman/ACIDE/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/scottbateman/ACIDE"></a> is maintained by <a href="https://github.com/scottbateman">scottbateman</a>.</p>
-
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
-    </div>
-
-            <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-34692757-1");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
-
-  </body>
+	</div>
+	<!-- End Contact Section -->
+	<div id="footer">
+		&copy; UPEI
+	</div>
+</body>
 </html>
