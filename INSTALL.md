@@ -23,8 +23,9 @@ The advantage of having a certificate from an authority is that it allows Java t
 #### Getting your own certificate
 Copy your certificate file that you acquired from the signing authority to the "javawx_workspace" directory.
 
-
-
+Directions are here (these work with http://www.certum.eu/): 
+ - http://stackoverflow.com/questions/19458676/signing-a-jar-file-with-trusted-certificate-for-jws-deployment
+ - http://stackoverflow.com/questions/4210254/how-to-sign-a-jar-file-using-a-pfx-file
 
 #### Creating the keystore file
 Change to the "javawx_workspace" directory.
@@ -43,7 +44,7 @@ The alias is typically the domain of the site you want to sign for, and the vali
 
 In this case we would have to generate a new key in a year.
 
-#### (Optional) Compile your own Console.jar
+#### Compile your own Console.jar
     
 The console is used to run all java files created in ACIDE on the user's local computer. The console is itself downloaded as a jar file when the user executes a command using 'java classname'. The source code is included, so that the Console can be customized. The provided Console.jar file contains a precompiled and packaged Console.
     
@@ -59,20 +60,24 @@ The console is used to run all java files created in ACIDE on the user's local c
 To sign the Console.jar file using the keystore you just created, use the following command (Make sure you: overwrite 'password' with the password you just used to create the keystore and that you are in the website root's directory):
 
     jarsigner -keystore ./javaws_workspace/keystore_file.keys -storepass 'password' \
-    ./javaws_workspace/jnlp_xml/Console.jar http://your_website.ca/
+    ./javaws_workspace/jnlp_xml/Console.jar ALIAS
+    
+if you are using a pfx file then you will need to specify the storetype
+    
+    -storepass pkcs12
 
 
 #### Updating the file `term.php` to point to the `.keys` file path
 
 Open the file `components/terminal/emulator/term.php`.
 
-Go to line `266`:
-    `system("jarsigner -keystore /var/codiad_files/jaxb.keys -storepass 'keystore password' " . $jar_path_and_name . " http://your_website.ca/");`
+Go to the line that looks like this:
+    `system("jarsigner -keystore /var/codiad_files/jaxb.keys -storepass 'keystore password' " . $jar_path_and_name . " alias");`
 
-In line `266` do the following:
+Edit the following:
   - Overwrite `/var/codiad_files/jaxb.keys` to point to the `.keys` file you just created.
   - Overwrite `keystore password` with the password you used to generate the keystore.
-  - Overwrite `http://your_website.ca/` with your own website address.
+  - Overwrite `alias` with your own website address or the alias you have for your key.
   
 ## Update config.php
 In the base directory update the `config.php` file to contain the correct BASE_PATH, WEB_BASE_PATH, TIMEZONE, etc.
