@@ -15,11 +15,19 @@ Ensure that the following directories/files have write capabilities:
 
 ## Java WS Configuration
 
-For the 'java' command work properly in the terminal and the generated `.class` file run by the browser automatically, you have to configure the system so it can generate and sign the required jar files.
+For the 'java' command work properly in the terminal and the generated `.class` file run by the browser automatically, you have to configure the system so it can generate and sign jar files, which contains the class files created by a user. There are two ways to do this: 1) get a certificate from a signing authority; 2) create your own certificate.
 
-Change to the "javawx_workspace" directory and follow the steps below.
+The advantage of having a certificate from an authority is that it allows Java to run the jar files through Java WebStart without gettig permission from the user. If you create your own certificate, the user will have to click on a confirmation box before being able to run their class files. Certificate services can be expensive (e.g., $300-$900/year); however, one service offers free certificates for open-source developpers (http://www.certum.eu/).
+
+
+#### Getting your own certificate
+Copy your certificate file that you acquired from the signing authority to the "javawx_workspace" directory.
+
+
+
 
 #### Creating the keystore file
+Change to the "javawx_workspace" directory.
 
 To sign a jar, we must first have a keystore (a private key) to do the signing. 
 
